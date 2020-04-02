@@ -1,0 +1,18 @@
+version: '3.0'
+services:
+    rollback-service:
+        build: .
+        ports:
+            - 3000:3000
+        environment:
+            - NODE_ENV=development
+            - PORT=3000
+        links:
+            - redis
+        environment:
+            - REDIS_URL=redis://cache
+    redis:
+        image: redis
+        container_name: cache
+        ports:
+            - 6379:6379
